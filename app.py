@@ -97,12 +97,6 @@ def not_found(error):
 def index():
     return render_template('index.html')
 
-
-@APPFLASK.route('/examples')
-def examples_page():
-    return APPFLASK.send_static_file('index.html')
-
-
 @APPFLASK.route('/<path:the_path>', methods=['GET', 'POST'])
 def all_other_routes(the_path):
     """
@@ -111,12 +105,12 @@ def all_other_routes(the_path):
     rootDir = os.path.dirname(__file__)
     htmlContent = ""
     if os.path.isfile(os.path.abspath(os.path.join(rootDir, 'templates', the_path))):
-       # htmlContent = render_template(the_path, **locals())
-       htmlContent = render_template(the_path, request=request)
+       htmlContent = render_template(the_path, **globals())
+       # htmlContent = render_template(the_path, request=request)
     elif os.path.isfile(os.path.abspath(os.path.join(rootDir, 'static', the_path))):
        htmlContent = APPFLASK.send_static_file(the_path)
     else:
-        return render_template('404.html', **locals()), 404
+        return render_template('404.html', **globals()), 404
     if htmlContent != "":
         return htmlContent, 200
     return None
