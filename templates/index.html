@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/socket.io.min.js"></script>
+    <script src="static/js/application.js"></script>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <script>
+        var testClick = function(){
+            sendServer('control.test.MyTestFun',function(msg){
+                 $('#mycontent').text(msg);
+            },111,2222222)
+        }
+        var testClick2 = function(){
+            sendServer('control.test.MyTestFun2',function(msg){
+                 $('#mycontent').text(msg);
+            },111,2222222)
+        }
+    </script>
+</head>
+<body id="body">
+<div class="container" id="content">
+    <div class="row">
+        <p>Запкстить Python скрипт</p>
+        <button onclick="testClick();">Запустить функцию MyTestFun в control/test.py без получения результат</button>
+        <button onclick="testClick2();">Запустить функцию MyTestFun2 в control/test.py возвращает только результат</button>
+        <pre id="mycontent"></pre>
+    </div>
+    <a href=""></a>
+</div>
+</body>
+</html>
+
